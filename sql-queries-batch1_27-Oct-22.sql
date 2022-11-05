@@ -27,7 +27,7 @@ select * from company where comp_email='hari@gmail.com';
 
 --date 28-Oct-22
 select * from company;
-insert into company(comp_id, comp_name, comp_email) VALUES (10, 'Jyothis', 'jyothis@gmail.com');
+insert into company(comp_id, comp_name, comp_email) VALUES (10, 'JyothV2444', 'jyothis@gmail.com');
 
 --add new column into the existing table
 ALTER TABLE <table_name> ADD <column_name> datatype;                           --syntax
@@ -275,5 +275,244 @@ select employee_id, employee_email, employee_mobile, employee_salary from employ
 --I want to get employee_id, emailid, mobile number and salary from the employee but whoever employee_salary is having more than 40000 and less than 70000;
 select employee_id, employee_email, employee_mobile, employee_salary from employee where employee_salary > 40000 and employee_salary <70000;
 
+commit; 
 
+-----------------------------------------------
+--04-Nov-22
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('P3244', 'Arun', 25000.09, 'M', SYSDATE, '+99876543210', 'p324@gmail.com', 'HCL', 'Bangalore');
+
+select * from employee where  employee_id='P3244'; --SYSDATE default is dd-mm-yy
+
+--Operators in Oracle.
+1.Arithmetic Operator   --> +, -, *, /
+2.Relation Operator    --> >, <, >=, <=,  != (or) <>
+3.Logical Operator     --> AND, OR, NOT
+4.Special Operator     --> between, in, like, is, any, all, exists 
+5.Set Operator         --> union, union all, intersect, minus
+6.where clause         --  It is used to get the data/records from the existing table baseds some coditions.
+
+--1.Arithmetic Operators examples(+, -, *, /)
+select * from employee;
+
+
+----------------------------
+--2.Relation Operator examples (>,>=, <,  <=,  != (or) <>)
+--get the data base on whoever employee salary more than 50000
+select * from employee where employee_salary > 50000; 
+
+--get the data base on whoever employee salary less than 40000
+select * from employee where employee_salary < 40000;
+
+--get the data base on whoever employee salary more than or equals 80000
+select * from employee where employee_salary >= 80000;
+
+--get the data base on whoever employee salary less than or equals 55000
+select * from employee where employee_salary <= 55000;
+
+--get the data base on whoever employee salary != 50000.04
+select * from employee where employee_salary != 50000.04;
+
+--get the data base on whoever employee salary = 50000.04
+select * from employee where employee_salary = 50000.04;
+
+----------------------------
+--3.Logical Operator     --> AND, OR, NOT
+--AND  - if we are getting the data from the existing table using multiple condition then we should use AND operator b/w that two column name.
+select * from <table_name> where <column_name>=<value> and <column_name>=<value>;   --syntax
+
+--get the data base on whoever employee salary more than 40000 and employee company name = 'HCL'
+select * from employee where employee_salary >40000 and employee_company_name = 'HCL';
+
+--get the data base on whoever employee salary more than 40000 and employee company name = 'Infosys'
+select * from employee where employee_salary >40000 and employee_company_name = 'Infosys';
+
+
+--get the data base on whoever employee salary more than 40000 and employee company name = 'Tech Mahendra' and employee location = 'Chennai'
+select * from employee where employee_salary >40000 and employee_company_name = 'Tech Mahendra' and employee_location = 'Chennai';
+
+--OR  - if we are getting the data from the existing table using multiple condition then we should use OR operator b/w that two column name.
+select * from <table_name> where <column_name>=<value> or <column_name>=<value>;   --syntax
+
+select * from employee where employee_salary = 52000.2 or employee_salary = 50000.04;
+
+select * from employee where employee_salary = 50000.24;
+
+select * from employee where employee_salary = 52000.2 or employee_salary = 50000.24;
+
+commit;
+
+update employee set employee_salary = 28000.00 where employee_id='R1022';
+
+select * from employee where employee_id= 'R1022';
+
+commit;
+
+-------------------------------------------------------
+--05-Nov-22
+--or 
+select * from  employee;
+
+select employee_id, employee_name, employee_dept from employee;
+
+update employee set employee_dept='Admin' where employee_id='R2452';
+
+select * from employee where employee_id='R2452';
+
+select employee_id, employee_name, employee_dept from employee where employee_id='R2452';
+
+update employee set employee_dept='Tech Leader' where employee_id='R7890';
+
+select employee_id, employee_name, employee_dept from employee where employee_id='R7890';
+
+update employee set employee_dept='HR Department' where employee_id='V7780';
+
+select employee_id, employee_dept from employee where employee_id='V7780';
+
+update employee set employee_dept='Developer' where employee_id='V2444';
+
+select employee_id, employee_name, employee_dept from employee where employee_id='V2444';
+
+commit;
+
+select * from employee;
+
+--whoever employee department is null, we need to get that recods from the table.
+--is command is used to get the data based on some conditions level like is null or is not null.
+select * from employee where employee_dept is null;
+
+select employee_id, employee_name, employee_email, employee_dept  from employee where employee_dept is null;
+
+--whoever employee department is not null, we need to get that recods from the table.
+select employee_id, employee_name, employee_email, employee_dept from employee where employee_dept is not null;
+
+--we need to update multiple recods at a time.
+--I want to update employee department=Developer whoever employee id is (C2443, N2454, P3244) 
+update employee set employee_dept='Developer' where employee_id in ('C2443', 'N2454', 'P3244');
+
+select employee_id, employee_name, employee_email, employee_dept from employee where employee_id in ('C2443', 'N2454', 'P3244');
+
+select employee_name, employee_id, employee_email, employee_dept, employee_company_name from employee where employee_dept is null;
+
+select employee_name, employee_id, employee_email, employee_dept, employee_company_name from employee where employee_id in ('A3454', 'A6734', 'S3443', 'J3456');
+
+--I want to update employee department='Marketing' whoever employee id is (A3454 or A6734 or S3443 or J3456)  and employee company name = Infosys or TCS
+update employee set employee_dept='Marketing' where employee_id in ('A3454', 'A6734', 'S3443', 'J3456') and employee_company_name in ('Infosys', 'TCS');
+
+select employee_id, employee_name, employee_email, employee_company_name,employee_dept 
+  from employee  
+  where employee_id in ('A3454', 'A6734', 'S3443', 'J3456') 
+  and employee_company_name in ('Infosys', 'TCS');
+
+commit;
+
+--------------------------------------------------------------
+--NOT 
+----I want to get the data from employee table whoever company name not equal Infosys
+select * from employee where employee_company_name='Infosys';
+
+select * from employee where employee_company_name not in ('Infosys');
+
+select employee_id, employee_email, employee_salary, employee_company_name from employee where employee_company_name not in ('HCL', 'Tech Mahendra');
+
+select employee_id, employee_email, employee_salary, employee_company_name from employee where employee_company_name is null;
+
+--I want to update company name='L&T' whoever employee salary more than 26000 and less than 35000;
+update employee set employee_company_name = 'L&T' where employee_salary>26000 and employee_salary<35000;
+
+select * from employee where employee_salary>26000 and employee_salary<35000;
+
+update employee set employee_company_name = 'HSBC' where employee_salary>26000 and employee_salary<35000;
+
+commit;
+
+select * from employee where employee_salary = 28000; --R1022
+
+select * from employee where employee_salary != 28000;
+
+------------------------------------
+--between operator : it is used to when we are going to companre based on some rang of values in the table.
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary  from employee;
+
+--I want to get the employee data, salary rang between  30000 and 70000;
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary from employee where employee_salary between 30000 and 70000;
+
+--I want to get the employee data, salary rang between  01-Jan-22 and 70000;
+
+select employee_id, employee_joining_date from employee where employee_joining_date = '01-AUG-22';
+
+select * from employee where employee_joining_date = '01-AUG-22';
+
+--delete command : it is use to delete table or recods from the existing table.
+create table m1(empId number(5), empName varchar2(25));
+insert into m1(empID, empName) values(2, 'Hari');
+insert into m1 values(4, 'Madhavi');
+
+select * from m1;
+
+delete from m1; --all records can be deleted with this commands.
+
+drop table m1;  --this commands is used to delete the table.
+
+commit;
+
+---------------------
+--I want to delete the records from the table based on employee id=S3443
+delete from <table_name> where <column_name> = <value>;   --syntax
+
+delete from employee where employee_id='S3443';
+
+select * from employee where employee_id='S3443';
+
+commit;
+
+select * from employee where employee_id='R2452' and employee_email='ram@gmail.com';
+
+delete from employee where employee_id='R2452' and employee_email='ram@gmail.com';
+
+commit;
+
+---------------------------------
+--between operator
+--I want to get the employee data, salary rang between  30000 and 70000;
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary from employee where employee_salary between 30000 and 70000;
+
+--****************************order by 
+--I want to get the employee data, salary rang between 30000 and 70000 in ascending order; asceding order is 1,2,3,4,.....10 or A,B,C,D,....Z
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary 
+  from employee 
+  where employee_salary 
+  between 30000 and 70000
+  order by employee_salary asc;
+  
+--I want to get the employee data, salary rang between 30000 and 70000 in ascending order; descending order is 10,9,8,7....0 or Z,Y,X,....A
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary 
+  from employee 
+  where employee_salary 
+  between 30000 and 70000
+  order by employee_salary desc;
+
+--I want to get the employee data whoever salary more than 50000 and joining date diplaying in ascending orders.
+select * from employee where employee_salary >50000 order by employee_joining_date asc;
+
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary from employee where employee_salary >50000 order by employee_joining_date asc;
+
+select * from employee where employee_joining_date between '01-Jan-21' and '31-Jul-22';
+
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary 
+  from employee 
+  where employee_joining_date 
+  between '01-Jan-21' and '05-Aug-22'
+  order by employee_joining_date asc;
+  
+commit;
 
