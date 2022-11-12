@@ -516,3 +516,190 @@ select employee_id, employee_name, employee_dept, employee_joining_date, employe
   
 commit;
 
+----------------------------------------------------------------------
+--12-Nov--22
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('U2345', 'Umesh', 27000.10, 'M', SYSDATE, '+99876543210', 'umesh@hcl.com', 'HCL', 'Chennai');
+
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('P2345', 'Paramesh', 37005.10, 'M', '10-Jan-2020', '+99876543333', 'paramesh@hcl.com', 'HCL', 'Chennai');
+
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('S1234', 'Sravani', 17050.10, 'F', '10-Jan-2020', '+98983543333', 'sravani@hcl.com', 'HCL', 'Hyderabad');
+
+
+select * from employee;
+
+select * from employee where employee_company_name='HCL';
+
+--in
+select * from employee where employee_company_name='HCL' and employee_location in ('Hyderabad', 'Chennai');
+
+--DISTINCT command need to use to avoid the dublicate values.
+--I want to get the only company name from the employee table.
+select DISTINCT employee_company_name from employee;
+
+--I want to get the employee records whoever working in IBM and TCS.
+select * from employee where employee_company_name in ('IBM', 'TCS');
+
+--I want to get the employee records whoever working in 'Infosys', 'HCL', 'IBM'
+select * from employee where employee_company_name in ('Infosys', 'HCL', 'IBM');
+
+--I want to get the employee records whoever working in 'Infosys', 'HCL', 'IBM' and sarlary is more than 50000.
+select * from employee where employee_company_name in ('Infosys', 'HCL', 'IBM') and employee_salary > 50000;
+
+--I want see the data based on below 3 conditions
+--1. employee company name = 'Infosys', 'HCL', 'IBM'  
+--2. sarlary is more than 45000  
+--3. I want see the employee data based on salary in ascending order.
+select * from employee where employee_company_name in('Infosys', 'HCL', 'IBM') and employee_salary >45000 order by employee_salary asc;
+
+--I want see the data based on below 3 conditions
+--1. employee company name = 'HSBC', 'TCS', 'HCL'  
+--2. sarlary is between than 45000  and 75000
+--3. I want see the employee data based on joining in descending order.
+select * from employee where employee_company_name in ('HSBC', 'TCS', 'HCL') and employee_salary between 45000 and 75000 order by employee_joining_date desc;
+
+commit;
+
+--or 
+select * from employee where employee_company_name='BirlaSoft' or employee_company_name='TCS';
+
+select * from employee where employee_company_name='HCL' or employee_company_name='TCS';
+
+select * from employee where employee_salary>=55000 or employee_salary='110000';
+
+--display the employee data in descending order
+select * from employee order by employee_salary desc;
+
+--display the employee data in ascending order
+select * from employee order by employee_salary asc;
+
+--I want to get the employee data whoever employee department is null
+select employee_id, employee_name, employee_dept, employee_joining_date, employee_salary 
+  from employee
+  where employee_dept is null;
+
+
+--update the employee department is Cleark for employee id = ('U2345', 'B3424', 'J3456');
+update employee set employee_dept='Cleark' where employee_id in ('U2345','B3424', 'J3456');
+
+select * from employee where employee_dept='Cleark';-- and employee_id in ('U2345','B3424', 'J3456');
+
+--update the employee department is Admin for employee id = ('P2345', 'A3425','S1234')
+update employee set employee_dept='Admin' where employee_id in ('P2345', 'A3425','S1234');
+
+select * from employee where employee_dept='Admin';
+
+commit;
+
+--like Operator
+--1.like Operator is used when we want to check some comparisions based on some patterns.
+--2.patterns like alphabets, digits, wildcard chars.
+--3.where column name like pattern.
+--4.where column name not like pattern
+--***what is wildcard chars.
+  --wildcard chars are two types
+    --1.%   -> it is used to replace 0 or many chars
+    --2._   -> it is used to replace exactly 1 char
+
+--examples of like operator
+select employee_id, employee_name, employee_dept, employee_company_name from employee;
+
+--I want to get the employee data based employee name start with R;
+select employee_id, employee_name, employee_dept, employee_company_name from employee where employee_name like 'R%';
+
+select employee_id, employee_name, employee_dept, employee_company_name from employee where employee_name like 'V%';
+
+select employee_id, employee_name, employee_dept, employee_company_name from employee where employee_name like 'A%l';
+
+select employee_id, employee_name, employee_dept, employee_company_name from employee where employee_name like '%r%';
+
+--I want to get the employee data based on below conditions
+--1.employee name contain 'r' charector
+--2.employee company name = 'HCL', 'Tech Mahendra'
+select employee_id, employee_name, employee_dept, employee_company_name 
+  from employee 
+  where employee_name like '%r%' 
+  and employee_company_name in ('HCL', 'Tech Mahendra');
+  
+
+--_ like operator
+select employee_id, employee_name, employee_dept, employee_company_name 
+  from employee where employee_name like '_a%';
+  
+select employee_id, employee_name, employee_dept, employee_company_name 
+  from employee where employee_name like '_a_';
+  
+select employee_id, employee_name, employee_dept, employee_company_name 
+  from employee where employee_name like '_a';
+  
+select employee_id, employee_name, employee_dept, employee_company_name 
+  from employee where employee_name like '%a_';
+  
+--get the employee data based joining date is only in Jan month
+select * from employee where employee_joining_date like '%JAN%';
+
+--get the employee data based joining date is only in Jan month and 20 year
+select * from employee where employee_joining_date like '%JAN-20';
+
+--get the employee data based joining date is only in 10th day
+select * from employee where employee_joining_date like '10%';
+
+select * from employee where employee_joining_date like '%22';
+
+select * from employee where employee_company_name in ('HCL', 'IBM');
+
+update employee set employee_email='chandra@ibm.com' where employee_id='C2443';
+
+update employee set employee_email='jyothis@ibm.com' where employee_id='J3456';
+
+--V1234, V7780
+update employee set employee_email='vikram11@techmahendra.com' where employee_id='V7780';
+
+update employee set employee_email='ram@techmahendra.com' where employee_id='V1234';
+
+select employee_email from employee;
+
+--get the employee data based employee emailid but email id ending with ibm.com
+select * from employee where employee_email like '%ibm.com';
+
+--get the employee data based employee emailid but email id ending with hcl.com
+select * from employee where employee_email like '%hcl.com';
+
+--get the employee data based employee emailid but email id ending with techmahendra.com
+select * from employee where employee_email like '%techmahendra.com';
+
+commit;
+
+
+
+
+
