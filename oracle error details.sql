@@ -12,3 +12,6 @@ https://www.youtube.com/watch?v=qmT76NGMp8g
 lsnrctl start
 lsnrctl status
 
+
+
+

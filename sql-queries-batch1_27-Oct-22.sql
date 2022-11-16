@@ -699,7 +699,40 @@ select * from employee where employee_email like '%techmahendra.com';
 
 commit;
 
+-----------------------------------------------------------------------
+--16-Nov-22
+--alias commands
+--It is used for chane the heading nmaes only.
+--alias means another name or alternative name
+--we can use alias names in two places like below
+  --1.column alias name
+  --2.table alias name
+  
+--syntax for the alias command of the table
+select * from <table_name> <alias_name>;
 
+select * from employee emp;     --examples
+
+--syntax for the alias command of the column
+select <column_name> as <alias_name> from <table_name>; 
+
+select employee_salary as empSalary from employee;
+
+
+--examles 
+select * from employee;
+
+--get the employee annuval salary
+select employee_id, employee_name, employee_dept, employee_salary, employee_salary*12 as annuval_salary   from employee emp;
+
+--increase the 5000rs salary for each employee and get the annuval salary also
+select employee_id, employee_name, employee_dept, 
+       employee_salary as old_emp_salary, 
+       employee_salary+5000 as updated_emp_salary, 
+       (employee_salary+5000)*12 as annuval_salary   
+  from employee emp;
+
+commit;
 
 
 
