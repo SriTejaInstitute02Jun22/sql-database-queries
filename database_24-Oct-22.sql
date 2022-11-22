@@ -6,9 +6,14 @@ https://www.youtube.com/watch?v=pk-E-QxWe38
 username : system
 password : system
 
---my user details
+--my oracle user details
+--dev
 username : sriteja
 password : sriteja
+
+--sit_env
+username : sit_env
+password : sitenv
 
 --basics 	-	24-Oct-22
 1.Analysis

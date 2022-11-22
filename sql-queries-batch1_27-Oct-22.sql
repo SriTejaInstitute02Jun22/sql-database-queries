@@ -723,7 +723,7 @@ select employee_salary as empSalary from employee;
 select * from employee;
 
 --get the employee annuval salary
-select employee_id, employee_name, employee_dept, employee_salary, employee_salary*12 as annuval_salary   from employee emp;
+select employee_id, employee_name, employee_dept, employee_salary, employee_salary*12 as annuval_salary from employee emp;
 
 --increase the 5000rs salary for each employee and get the annuval salary also
 select employee_id, employee_name, employee_dept, 
@@ -733,6 +733,69 @@ select employee_id, employee_name, employee_dept,
   from employee emp;
 
 commit;
+
+---------------------------------------------------------------------
+--17-Nov-22
+--pending tasks
+  --1.flashback
+  --2.drop
+  --3.truncate
+  --4.primary key
+  --5.foregin key
+  --6.joins
+  --7.timestamp and time format
+
+--interview queastion and answers
+--diff b/w  delete and truncate and drop
+--diff b/w date and timestamp
+
+desc employee;
+
+-----------------------------------------------
+--22-Nov-22
+--20%
+--(percentage/100)*salary   --formala
+--(20/100)*25000.09 -->0.2*25000.09 
+
+--increase the 20% salary for the all employee and check the annuval salary details.
+select  employee_id, employee_name, employee_dept, 
+        employee_salary as old_emp_salary,
+        employee_salary*0.2 as increased_one_month_emp_salary,
+        (employee_salary*0.2)+employee_salary as updated_monthly_emp_salary,
+        employee_salary*12 as old_annuval_emp_salary,
+        ((employee_salary*0.2)+employee_salary)*12 as updated_annuval_emp_salary
+from employee emp;      
+
+
+select distinct employee_dept from employee;
+
+--increase the employee salary based on below conditions
+--1.Admin = 20%
+--2.Developer = 30%
+--3.Tech Leader = 40%
+--4.Marketing = 15%
+--5.HR Deparment = 25%
+--6.Cleark = 15% 
+
+--old_employee_salray, updated_percentage_salary, updated_monthly_salary, old_annuval_emp_salary, updated_annuval_emp_salary
+
+commit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
