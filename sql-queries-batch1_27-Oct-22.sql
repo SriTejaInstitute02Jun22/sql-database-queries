@@ -782,13 +782,205 @@ select distinct employee_dept from employee;
 commit;
 
 
+--------------------------------------------------
+--23-Nov-22
+--**********case statement
+--case statement is  used to implement IF-THEN-ELSE and it work like switch case
+--case satement are 2 types like below
+--1.simple case
+--2.searched case
+
+--The CASE expression goes through conditions and returns a value when the first condition is met (like an if-then-else statement). 
+--So, once a condition is true, it will stop reading and return the result. 
+--If no conditions are true, it returns the value in the ELSE clause.
+--If there is no ELSE part and no conditions are true, it returns NULL.
+
+--1.simple case
+--it is used when the conditions are using on '=' operators
+--syntax: 
+  CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    WHEN conditionN THEN resultN
+    ELSE result
+  END;
+  
+--examples
+select employee_id, employee_name,employee_salary,
+        case
+        when employee_salary >35000 then 'Clark'
+        when employee_salary <35000 then 'HR'
+        else 'no data'
+        end as emp_dept
+from employee;
+
+select employee_id, employee_name,employee_salary,
+        case
+        when employee_salary <1500 then 'Clark'
+        when employee_salary <1000 then 'HR'
+        else 'no data'
+        end as emp_dept
+from employee;
 
 
+select employee_id, employee_name,employee_salary,
+        case
+        when employee_salary <1500 then 'Clark'
+        when employee_salary <1000 then 'HR'
+        else 'no data'
+        end as emp_dept
+from employee;
 
 
+----------------------------------------------------------------need to check below conditions because it is giving some errors
 
+--23-Nov-22
+--increase the employee salary based on below conditions
+--1.Admin = 20%
+--2.Developer = 30%
+--3.Tech Leader = 40%
+--4.Marketing = 15%
+--5.HR Deparment = 25%
+--6.Cleark = 15% 
 
+--old_employee_salray, updated_percentage_salary, updated_monthly_salary, old_annuval_emp_salary, updated_annuval_emp_salary
 
+--below are the error details.------------------
+--ora-01427: single-row subquery returns more than one row in case statement
+--ORA-00913: too many values
+select employee_id, employee_name, employee_dept,
+        case
+        when employee_dept='Admin' then (select (employee_salary*0.2)+employee_salary  from employee)
+        when employee_dept='Developer' then (select (employee_salary*0.3)+employee_salary  from employee)
+        else 'no department matching'
+        end as updated_monthly_emp_salary
+from employee;
+
+select (employee_salary*0.2)+employee_salary  from employee;
+
+select (employee_salary*0.3)+employee_salary  from employee;
+
+select employee_id, employee_name, employee_dept,
+        case
+        when employee_dept='Admin' then '30000.108'
+        when employee_dept='Developer' then '8000'
+        else 'no department matching'
+        end as updated_monthly_emp_salary
+from employee;
+
+select employee_id, employee_name, employee_dept,
+        case
+        when employee_dept='Admin' then (select (emp.employee_salary*0.2)+emp.employee_salary  from employee emp)
+        when employee_dept='Developer' then (select (emp.employee_salary*0.3)+emp.employee_salary  from employee emp)
+        else (select * from employee where employee_dept not in ('Admin', 'Developer'))
+        end as updated_monthly_emp_salary
+from employee;
+
+----------------------------------------------------------------end-------------------------------------
+
+--24-Nov-22
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('R7111', 'Deepika', 45000, 'F', '10-Jan-22', '+9024422000', 'deepika@gmail.com', 'IBM', 'Hyderabad');
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('R7199', 'Sujata', 15000, 'F', '10-Jan-22', '+9189422000', 'sujata@gmail.com', 'TCS', 'Banagalore');
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('R7678', 'Srija', 25000.89, 'F', '10-Nov-22', '+9899422000', 'srija@gmail.com', 'HSBC', 'Hyderabad');
+
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('R9098', 'Madhavi', 45000, 'O', '10-Jan-22', '+9824422000', 'madhavi@gmail.com', 'HCL', 'Hyderabad');
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('R6666', 'Madhu', 65000, 'O', '01-Jan-21', '+9186722000', 'madhu@gmail.com', 'TCS', 'Banagalore');
+insert into employee(
+  employee_id, 
+  employee_name,
+  employee_salary, 
+  employee_gender,
+  employee_joining_date,
+  employee_mobile, 
+  employee_email,
+  employee_company_name,
+  employee_location)
+values('R7678', 'Uppendra', 30000.19, 'O', '10-Nov-22', '+9800422000', 'uppendra@gmail.com', null, 'Pune');
+
+commit;
+--case statement
+--if gender is femail then team name is Salse Department
+--if gender is male then team name is HR
+--if gender is others then team name is Salse Executive
+select employee_id, employee_name, employee_dept, employee_salary, employee_gender,
+        case
+          when employee_gender='F' then 'Salse Department'
+          when employee_gender='M' then 'HR'
+        else 'Sales Executive'
+        end as team_name
+from employee;
+
+-- take the below code for your reference.    
+--if(employee_gender='F'){
+--	'Salse Department';
+--}else if(employee_gender='M'){
+--	'HR';
+--}else {
+--	'Sales Executive';
+--}
+
+--based on salary we are deviding the department 
+--
+select employee_id, employee_name, employee_dept,employee_gender, employee_salary,
+        case
+          when employee_salary > 10000 and employee_salary < 35000 then 'Marketing Team'
+          when employee_salary > 35000 and employee_salary < 75000 then 'Admin Team'
+          when employee_salary > 75000 and employee_salary < 100000 then 'HR Team'
+          when employee_salary < 10000 then 'Reception Team'
+          when employee_salary > 100000 then 'Development Team'
+        else 'salary is still not decided because HR discusson is pending'
+        end as team_name
+from employee;
 
 
 
