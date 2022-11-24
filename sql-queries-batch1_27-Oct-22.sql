@@ -982,7 +982,7 @@ select employee_id, employee_name, employee_dept,employee_gender, employee_salar
         end as team_name
 from employee;
 
-
+commit;
 
 
 
