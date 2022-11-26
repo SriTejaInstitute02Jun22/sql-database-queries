@@ -984,6 +984,117 @@ from employee;
 
 commit;
 
+--------------------------------------
+--26-Nov-22
+--creating the company table
+--creating the address table
+
+--delete the existing company table
+drop table company;
+
+--creating the company table
+create table company(
+  company_name varchar2(250) not null,   --primary key
+  company_id varchar2(250) not null,
+  company_address varchar2(250),
+  company_email varchar2(250) not null,
+  company_mobile varchar2(15) not  null,
+  company_start_date date not null,
+  company_end_date date,
+  company_turnover number(25,2), --nunber(p,s), 2244455555555.55
+  company_location varchar2(25),
+  company_branches varchar2(25),
+  primary key (company_name)      --creating the single primary key in the table
+  --CONSTRAINT pk_company primary key (company_name, company_id)      --creating the multiple primary keys in the table
+);
+
+commit;
+
+insert into company values('Capgemini', 'C1234', null, 'capgemini@capgemini.com', '+919092843833', sysdate, null, 24245.23, 'Pune', 'Pune_branch');
+
+insert into company values('HCL', 'H8934', null, 'hc@hcl.com', '+91909284903', '12-Nov-1991', null, 24299.10, 'Pune', 'Pune_branch');
+insert into company values('Infosys', 'I2445', null, 'infosys@infosys.com', '+916485533', '10-Oct-1981', null, 24245.23, 'Hyderabad', 'Hyderabad_branch');
+insert into company values('IBM', 'IB673', null, 'ibm@ibm.com', '+9189374233', '25-Dec-2020', null, 24273.13, 'Bangalore', 'Bangalore_branch');
+insert into company values('Aptude', 'A3674', null, 'aptude@aptude.com', '+9187654311', sysdate, null, 24005.33, 'Chennai', 'Chennai_branch');
+insert into company values('TCS', 'T3533', null, 'tcs@tcs.com', '+9197837322', sysdate, null, 21245.23, 'Pune', 'Pune_branch');
+insert into company values('Cognizant', 'CG8932', null, 'cognizant@cognizant.com', '+919092843890', '16-Jan-2000', null, 27845.78, 'Hyderabad', 'Hyderabad_branch');
+insert into company values('Accenture', 'AC7843', null, 'accenture@accenture.com', '+919092843987', sysdate, null, 24005.43, 'Chennai', 'Chennai_branch');
+insert into company values('Google', 'G5634', null, 'google@google.com', '+919092843000', '10-Jan-2000', null, 98945.23, 'Bangalore', 'Bangalore_branch');
+
+commit;
+
+select * from company;
+
+---------------------------------------------
+--how to add the primary key for existing column name in the existing table.
+alter table table_name add primary key (column_name);   --syntax
+
+alter table employee add primary key (employee_id);
+
+--how to add the Foreign key for existing column name in the existing table.
+alter table table_name add foreign key (column_name) references table_name(column_name);    --syntax
+
+alter table employee add foreign key (COMPANY_NAME) references company (COMPANY_NAME);    --examples
+
+select employee_id from employee;
+
+delete from employee where employee_id='R7678';
+
+--rename the employee_company_name 
+alter table employee rename column employee_company_name to company_name;		
+
+select * from company;
+
+commit;
+
+--how to delete the all records from the table.
+delete from table_name;    --syntax
+delete from employee; 
+
+commit;
+
+--insert the backup all records into employee table
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('R7199','Sujata',15000,'F   ',to_date('10-JAN-22','DD-MON-RR'),'+9189422000','sujata@gmail.com','TCS','Banagalore',null);
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('S1234','Sravani',17050.1,'F   ',to_date('10-JAN-20','DD-MON-RR'),'+98983543333','sravani@hcl.com','HCL','Hyderabad','Admin');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('R7890','Ram',25000.09,'M   ',to_date('31-OCT-22','DD-MON-RR'),'+9024422423','ram1@gmail.com',null,'Hyderabad','Tech Leader');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('P3244','Arun',25000.09,'M   ',to_date('04-NOV-22','DD-MON-RR'),'+99876543210','p324@gmail.com','HCL','Bangalore','Developer');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('U2345','Umesh',27000.1,'M   ',to_date('12-NOV-22','DD-MON-RR'),'+99876543210','umesh@hcl.com','HCL','Chennai','Cleark');
+
+
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('P2345','Paramesh',37005.1,'M   ',to_date('10-JAN-20','DD-MON-RR'),'+99876543333','paramesh@hcl.com','HCL','Chennai','Admin');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('A3454','Arun',40000.4,'M   ',to_date('10-AUG-22','DD-MON-RR'),'+918938748422','arun@gmail.com','HCL','Hyderbad',null);
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('R9098','Madhavi',45000,'O   ',to_date('10-JAN-22','DD-MON-RR'),'+9824422000','madhavi@gmail.com','HCL','Hyderabad',null);
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('R7111','Deepika',45000,'F   ',to_date('10-JAN-22','DD-MON-RR'),'+9024422000','deepika@gmail.com','IBM','Hyderabad',null);
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('N2454','Naresh',45000,'M   ',to_date('01-AUG-22','DD-MON-RR'),'+917890374824','naresh@gmail.com','HCL','Pune','Developer');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('A6734','Arjun',50000,'M   ',to_date('08-JAN-20','DD-MON-RR'),'+918765432190','arjun@gmail.com','TCS','Chenai','Marketing');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('V2444','Vikram',55000.24,'M   ',to_date('01-OCT-22','DD-MON-RR'),'+91782373349','vikram@gmail.com','HCL','Bangalore','Developer');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('R6666','Madhu',65000,'O   ',to_date('01-JAN-21','DD-MON-RR'),'+9186722000','madhu@gmail.com','TCS','Banagalore',null);
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('J3456','Jyothis',75000.04,'M   ',to_date('03-MAR-21','DD-MON-RR'),'+918765390987','jyothis@ibm.com','IBM','Hyderabad','Cleark');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('A3425','Anil',80000.04,'M   ',to_date('11-FEB-21','DD-MON-RR'),'+918654209872','anil@gmail.com','Infosys','Bangalore','Admin');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('C2443','Chandra',100000.24,'M   ',to_date('15-JAN-21','DD-MON-RR'),'+917896539260','chandra@ibm.com','IBM','Chenai','Developer');
+
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('R1022','Ramesh',28000,'M   ',to_date('10-OCT-22','DD-MON-RR'),'+9189282233','ramesh@gmail.com','HSBC','Hyderabad','IT');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('B3424','Balu',30000.04,'M   ',to_date('01-AUG-22','DD-MON-RR'),'+9178965430283','balu@gmail.com','HSBC','Pune','Cleark');
+
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('V1234','Vikram',48000.9,'M   ',to_date('12-JAN-21','DD-MON-RR'),'+9024422423','ram@techmahendra.com','Tech Mahendra','Pune','IT');
+Insert into EMPLOYEE (EMPLOYEE_ID,EMPLOYEE_NAME,EMPLOYEE_SALARY,EMPLOYEE_GENDER,EMPLOYEE_JOINING_DATE,EMPLOYEE_MOBILE,EMPLOYEE_EMAIL,COMPANY_NAME,EMPLOYEE_LOCATION,EMPLOYEE_DEPT) values ('V7780','Vikram',52000.2,'M   ',to_date('01-MAR-21','DD-MON-RR'),'+989098734','vikram11@techmahendra.com','Tech Mahendra','Chennai','HR Department');
+
+commit;
+
+---------------------------------------------------end-----------------26-Nov-22
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
