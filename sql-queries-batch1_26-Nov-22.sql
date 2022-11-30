@@ -42,6 +42,7 @@ commit;
 
 select * from company where company_name='IBM';
 
+--get the address details based on company name from company and address
 select comp.company_name, comp.company_id, comp.company_email, comp.company_mobile, 
        adds.area as company_area, adds.city_name as company_city_name, adds.pincode as company_pincode, adds.country as company_country
 from company comp, address adds 
@@ -52,9 +53,35 @@ select comp.company_name, comp.company_id, comp.company_email, comp.company_mobi
 from company comp, address adds 
 where comp.company_name = adds.company_name;
 
+--get the address details and company details based on company name from company and address
+select * from company comp , address adds where comp.company_name = adds.company_name;
+
+--get the address details and company details based on company name from company and address
+--company name is 'HCL'
+select * from company comp , address adds where comp.company_name = 'HCL' and comp.company_name = adds.company_name;
+
+--company name is 'Capgemini'
+select * from company comp , address adds where comp.company_name = 'Capgemini' and comp.company_name = adds.company_name;
+
+--company name is 'TCS'
+select comp.company_name, comp.company_id, comp.company_email, comp.company_mobile, 
+       adds.area, adds.city_name, adds.pincode, adds.country
+from company comp, address adds 
+where comp.company_name = 'TCS' and comp.company_name = adds.company_name;
+
 commit;
 
+--
+--Different Types of SQL JOINs
+--Here are the different types of the JOINs in SQL:
+--(INNER) JOIN: Returns records that have matching values in both tables
+--LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+--RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+--FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table
 
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
 
 
 
