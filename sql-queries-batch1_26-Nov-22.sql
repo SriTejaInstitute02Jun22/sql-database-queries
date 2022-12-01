@@ -71,6 +71,59 @@ where comp.company_name = 'TCS' and comp.company_name = adds.company_name;
 
 commit;
 
+--01-Dec-22
+--get the data from company and employee and address based on company name
+--how many employee are working in HCL
+--company name = HCL
+--get the all employee details with address from the HCL company.
+select * from company comp, employee emp, address adds 
+  where comp.company_name =  'HCL' 
+  and comp.company_name = emp.company_name          --get the data from company and employee table.
+  and emp.employee_id = adds.employee_id;           --get the data from employee and address table.
+  
+  
+select comp.company_name, comp.company_id, comp.company_location,
+       emp.employee_id, emp.employee_dept, emp.company_name,
+       adds.employee_id, adds.company_name, adds.city_name, adds.pincode,adds.state
+from company comp, employee emp, address adds 
+  where comp.company_name =  'HCL' 
+  and comp.company_name = emp.company_name          --get the data from company and employee table.
+  and emp.employee_id = adds.employee_id;           --get the data from employee and address table.
+  
+  
+  
+select comp.company_name, comp.company_id, comp.company_location,
+       emp.employee_id, emp.employee_dept, emp.company_name
+  from company comp, employee emp
+  where comp.company_name =  'HCL' 
+  and comp.company_name = emp.company_name;          --get the data from company and employee table.
+  
+  
+select comp.company_name, comp.company_id, comp.company_location,
+       emp.employee_id, emp.employee_dept, emp.company_name
+  from company comp, employee emp
+  where comp.company_name =  'HCL' 
+  and comp.company_name = emp.company_name;          --get the data from company and employee table.
+  
+  
+select comp.company_name, comp.company_id, comp.company_location,
+       emp.employee_id, emp.employee_dept, emp.company_name,
+       adds.employee_id, adds.company_name, adds.city_name, adds.pincode,adds.state
+  from company comp, employee emp, address adds 
+  where comp.company_name =  'HCL' 
+  and comp.company_name = emp.company_name          --get the data from company and employee table.
+  and emp.employee_id = adds.employee_id;           --get the data from employee and address table.
+ 
+select * from address where employee_id  in ('S1234', 'P3244', 'U2345', 'P2345', 'A3454', 'R9098', 'N2454', 'V2444');
+
+commit;
+
+select * from company comp, employee emp, address adds 
+  where comp.company_name =  'HCL' 
+  and comp.company_name = emp.company_name          --get the data from company and employee table.
+  and emp.employee_id = adds.employee_id;           --get the data from employee and address table.
+  
+  
 --
 --Different Types of SQL JOINs
 --Here are the different types of the JOINs in SQL:
@@ -83,6 +136,111 @@ SELECT Orders.OrderID, Customers.CustomerName
 FROM Orders
 INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
 
+
+--get the from company and employee tables based on company name
+select * from company comp inner join employee emp on comp.company_name = emp.company_name;
+
+select * 
+  from company comp 
+  inner join employee emp on comp.company_name = emp.company_name
+  where comp.company_name='IBM';
+  
+--inner join  
+select comp.company_name, comp.company_email, comp.company_mobile,
+        emp.employee_name, emp.employee_id, emp.employee_mobile, comp.company_name, emp.employee_dept
+  from company comp 
+  inner join employee emp on comp.company_name = emp.company_name
+  where comp.company_name='HSBC';
+  
+--left join
+select comp.company_name, comp.company_email, comp.company_mobile,
+        emp.employee_name, emp.employee_id, emp.employee_mobile, comp.company_name, emp.employee_dept
+  from company comp 
+  left join employee emp on comp.company_name = emp.company_name;
+  
+--righ join  
+select comp.company_name,  emp.employee_name,comp.company_name,comp.company_email, comp.company_mobile,
+        emp.employee_id, emp.employee_mobile,  emp.employee_dept, emp.employee_id
+  from company comp 
+  right join employee emp on comp.company_name = emp.company_name;
+
+--full join  
+select comp.company_name,  emp.employee_name,comp.company_name,comp.company_email, comp.company_mobile,
+        emp.employee_id, emp.employee_mobile,  emp.employee_dept, emp.employee_id
+  from company comp 
+  full join employee emp on comp.company_name = emp.company_name;
+  
+--right join
+SELECT Orders.OrderID, Employees.LastName, Employees.FirstName
+FROM Orders
+RIGHT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+ORDER BY Orders.OrderID; 
+  
+
+commit;
+
+-----------------
+--truncate
+--A truncate SQL statement is used to remove all rows (complete data) from a table.
+--It is similar to the DELETE statement with no WHERE clause.
+--create the school table
+create table school(
+  school_id number(25),
+  school_name varchar2(25),
+  school_location varchar2(25),
+  school_email varchar2(50),
+  school_mobile_num number(15)
+);
+
+--insert the records into school table
+insert into  school values(23, 'MPP', 'Nallacheruvu', 'mpp@gmail.com', 83897422);
+insert into  school values(45, 'ZPP', 'KK Palli', 'zpp@gmail.com', 78334343);
+insert into  school values(67, 'SCC', 'Cross', 'scc@gmail.com', 833434422);
+insert into  school values(89, 'OPP', 'Kadiri', 'opp@gmail.com', 74734343);
+insert into  school values(65, 'RRR', 'LaxmiPuram', 'rrr@gmail.com', 98843433);
+
+--delete the records based on school id
+delete from school where school_id=89;
+
+commit;
+
+--to find the table description
+desc school;
+
+select * from school;
+
+--delete the all records from table using truncate
+--table structor cann't delete when we are using the truncate.
+truncate table <table_name>;      -- syntax
+truncate table school;            --examples
+
+select * from school;
+
+desc school;
+
+--drop the school table using drop command
+drop table school;
+
+desc school;
+
+select * from school;
+
+---------------------
+desc school;
+
+delete from school;   -- we can use the where clause
+
+desc school;
+
+commit;
+
+--default table in the sql databse is 'dual';
+
+--pending tapics
+--1.flashback
+--2.rollback
+--3.time stamp and date format
+----------------------------------------------------01-Dec-22----------ending
 
 
 
